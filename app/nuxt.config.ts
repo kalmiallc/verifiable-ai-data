@@ -101,8 +101,6 @@ export default defineNuxtConfig({
         { name: 'twitter:url', content: meta.url, hid: 'twitter:url' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:image', content: meta.image },
-        { name: 'twitter:creator', content: meta.twitter },
-        { name: 'twitter:site', content: meta.twitter },
         {
           'http-equiv': 'Content-Security-Policy',
           content:

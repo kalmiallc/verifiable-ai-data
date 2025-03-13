@@ -190,6 +190,10 @@ async function askQuestion() {
 
     question.value = '';
   } catch (error) {
+    messages.value.pop();
+    messages.value.pop();
+
+    messageApi.error(error);
     console.log(error);
   } finally {
     questionLoading.value = false;
