@@ -1,0 +1,45 @@
+@layer utilities {
+  .flex-cc {
+    @apply flex justify-center items-center;
+  }
+  .flex-bc {
+    @apply flex justify-between items-center;
+  }
+  .border-gradient-blue {
+    @apply border border-blue;
+    border-image: linear-gradient(180deg, #e3e3e3 0%, #00aeae 100%) 1;
+  }
+
+  .card {
+    @apply relative bg-grey-light rounded-lg px-4 py-2 text-white;
+  }
+
+  /** scrollbar */
+  .scrollable {
+    @apply transition-all duration-300;
+    -ms-overflow-style: auto;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar-thumb,
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+      border-radius: 5px;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+}

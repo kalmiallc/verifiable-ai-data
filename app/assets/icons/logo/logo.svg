@@ -1,0 +1,13 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradientLogo" x1="0" y1="0" x2="1" y2="1">
+      <!-- Start with the original color -->
+      <stop offset="0%" stop-color="#B14AB3"/>
+      <!-- A lighter variant of the original purple -->
+      <stop offset="100%" stop-color="#D99FDB"/>
+    </linearGradient>
+  </defs>
+  <!-- New Logo Icon using the gradient -->
+  <circle cx="25" cy="25" r="20" fill="url(#gradientLogo)"/>
+</svg>

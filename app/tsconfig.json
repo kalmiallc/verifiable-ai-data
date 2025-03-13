@@ -1,0 +1,10 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "noImplicitAny": false,
+    "types": ["node", "@nuxtjs/i18n", "@pinia/nuxt"],
+    "typeRoots": ["./node_modules/@types", "./lib/types"]
+  }
+}

@@ -1,0 +1,40 @@
+
+
+<svg  xmlns="http://www.w3.org/2000/svg" 
+   width="36"
+   height="36"
+   viewBox="0 0 36 36"
+   fill="none">
+  <path
+     d="m 18.513515,34.994296 v 0 c -9.6799083,0 -17.52703007,-7.612892 -17.52703007,-17.003906 v 0 c 0,-9.3909942 7.84712177,-17.00390507 17.52703007,-17.00390507 v 0"
+     stroke="url(#paint1_linear_16318_165596)"
+     stroke-width="2"
+     stroke-linecap="round"
+    >
+     <animateTransform
+      attributeName="transform"
+      type="rotate"
+      dur="0.75s"
+      values="0 18 18;360 18 18"
+      repeatCount="indefinite"
+    />
+     </path>
+  <defs>
+    <linearGradient
+       id="paint1_linear_16318_165596"
+       x1="1.29661"
+       y1="17.896601"
+       x2="18.2775"
+       y2="17.896601"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0014247,0,0,0.97383583,-0.01389077,0.01369809)">
+      <stop
+         stop-color="#2F7835"
+         id="stop11" />
+      <stop
+         offset="1"
+         stop-color="#15301B"
+         id="stop13" />
+    </linearGradient>
+  </defs>
+</svg>

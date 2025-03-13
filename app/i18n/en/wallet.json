@@ -1,0 +1,18 @@
+{
+  "wallet": {
+    "login": {
+      "success": "Wallet has been successfully connected",
+      "title": "Log in with wallet",
+      "walletAccountNotConnected": "A wallet account must be connected",
+      "walletNotConnected": "A wallet must be connected",
+      "walletNotConnected2": "A wallet must be connected, please reconnect. If the issue persist try reloading."
+    },
+    "address": "Wallet address",
+    "connect": "Connect",
+    "connected": "Wallet connected",
+    "createAccount": "This wallet hasn't got any account. Create an account first.",
+    "disconnect": "Disconnect",
+    "info": "Connect your wallet",
+    "title": "Choose wallet"
+  }
+}

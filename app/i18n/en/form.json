@@ -1,0 +1,44 @@
+{
+  "form": {
+    "label": {
+      "email": "Email address",
+      "borrowerAddress": "Borrower Address",
+      "chain": "Chain",
+      "interestRate": "Interest Rate",
+      "lenderAddress": "Lender Address",
+      "loanAmount": "Loan Amount",
+      "loanDuration": "Loan Duration",
+      "loanTokenContract": "Loan Token Contract",
+      "offerExpiration": "Offer Expiration",
+      "repayAmount": "Repay Amount",
+      "repayChain": "Repay Chain",
+      "repayTokenContract": "Repay Token Contract",
+      "nft": "NFT",
+      "uri": "Base URI",
+      "labelInfo": {
+        "interestRate": "Annual interest rate in percent (0-100).",
+        "loanDuration": "In seconds, 3600 for an hour, 86400 for a day, 604800 for a week, 2592000 for a month"
+      }
+    },
+    "placeholder": {
+      "date": "Select date",
+      "decimal": "Enter decimal number",
+      "description": "Enter description",
+      "email": "youremail{afna}mail.com",
+      "name": "Type name",
+      "number": "Enter number",
+      "select": "Please select"
+    },
+    "success": {
+      "offerRequest": "Offer Request has been created",
+      "profile": "Your profile data has been updated"
+    },
+
+    "confirm": "Yes, confirm",
+    "continue": "Continue",
+    "createOfferRequest": "Create Offer Request",
+    "disabled": "Disabled",
+    "proceed": "Proceed",
+    "update": "Update"
+  }
+}

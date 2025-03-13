@@ -1,0 +1,37 @@
+{
+  "error": {
+    "contract": {
+      "32700": "Parse error: Invalid JSON.",
+      "32600": "Invalid request: This can happen when your request is malformed. Additionally, some providers use this code to signal that a particular method is not available or requires switching to a paid tier.",
+      "32601": "Method not found: This usually happens when the method is not available with a given provider. If you need to use a specific method that's not supported by the provider, try changing the provider or consider switching to a more expensive tier.",
+      "32602": "Invalid params: This happens when the request parameters are invalid. To fix, double check the parameters that you pass with the request and make sure they comply with the spec.",
+      "32603": "Internal error: This might happen when the node reverts during the request execution. This can also happen if the request is malformed or invalid.",
+      "32000": "Invalid input: Missing or invalid parameters.",
+      "32001": "Resource not found: This usually happens when calling a method that's not supported. Try using a different method or switch providers.",
+      "32002": "Resource unavailable: Requested resource not available.",
+      "32003": "Transaction rejected: Transaction creation failed.",
+      "32004": "Method not supported: Method is not implemented.",
+      "32005": "Limit exceeded: Request exceeds defined limit.",
+      "32006": "JSON-RPC version not supported: Version of JSON-RPC protocol is not supported."
+    },
+    "general": "Something went wrong, please try again later.",
+    "404": "Page not found",
+    "BAD_REQUEST": "There is a problem with this request. Please come back later when we fixed that problem.",
+    "INVALID_PATH": "Invalid path",
+    "INVALID_QUERY_PARAMETERS": "Invalid query parameters",
+    "UNAUTHORIZED": "You are unauthorized for this action",
+    "INVALID_TOKEN": "Invalid token",
+    "AUTH_TOKEN_EXPIRED": "Your session has expired, please log in again.",
+    "USER_IS_NOT_AUTHENTICATED": "User is not authenticated",
+    "FORBIDDEN": "You don't have permission for this action",
+    "USER_IS_NOT_AUTHORIZED": "User is not authorized",
+    "Insufficient permissions to modify this record": "You don't have permission for this action",
+    "Insufficient permissions to access this record": "You don't have permission for this action",
+    "DEFAULT_VALIDATOR_ERROR_CODE": "Validation error, please fill the form",
+    "FORBIDDEN_RESOURCE": "You don't have permissions for this action",
+    "ERR_CONNECTION_REFUSED": "Connection refused, please check your internet connection.",
+    "Failed to fetch": "Connection refused, please check your internet connection.",
+    "jwt expired": "Your session has expired, please log in again.",
+    "walletSignature": "'Could not capture your signature, check your wallet connection"
+  }
+}

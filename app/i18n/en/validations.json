@@ -1,0 +1,12 @@
+{
+  "validation": {
+    "email": "Email address is not valid",
+    "emailRequired": "Please enter your email address",
+    "interestRateRequired": "Please enter interest rate",
+    "loanAmount": "Please enter loan amount",
+    "loanAmountRequired": "Please enter loan amount",
+    "loanDuration": "Please enter loan duration",
+    "loanDurationRequired": "Please enter loan duration",
+    "nftRequired": "Please select NFT"
+  }
+}
