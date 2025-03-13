@@ -1,0 +1,30 @@
+{
+  "name": "verifiable-ai-contracts",
+  "version": "0.0.1",
+  "description": "Smart contracts for Verifiable AI Hackathon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "build": "npx hardhat compile",
+    "flatten": "npx hardhat flatten",
+    "coverage": "npx hardhat coverage"
+  },
+  "author": "Mitja Kjuder",
+  "license": "LGPL-3.0",
+  "devDependencies": {
+    "@nomiclabs/hardhat-etherscan": "^3.1.1",
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.1",
+    "hardhat": "2.14.1",
+    "hardhat-abi-exporter": "^2.3.1",
+    "hardhat-contract-sizer": "^2.1.1",
+    "solidity-coverage": "^0.8.14"
+  },
+  "dependencies": {
+    "openzeppelin-solidity": "2.3.0",
+    "@openzeppelin/contracts": "^4.3.2"
+  }
+}
