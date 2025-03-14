@@ -2,6 +2,8 @@
 
 Project solution for the Verifiable AI Hackathon
 
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/Cevx1QfOmzE/0.jpg)](http://www.youtube.com/watch?v=Cevx1QfOmzE "Flare Verifiable AI Data Demo")
+
 ## Application URLs
 
 ##### NOTICE: Before opening the application open the https://34.162.205.94/api/ in the browser and allow its self signed certificate.
