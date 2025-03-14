@@ -41,3 +41,38 @@ npm run db-import-documents
 ```bash
 npm run dev
 ```
+
+## Deploy on gcloud
+
+```
+gcloud compute instances create $INSTANCE_NAME \
+  --project=verifiable-ai-hackathon \
+  --zone=us-east5-b \
+  --machine-type=n2d-standard-2 \
+  --network-interface=network-tier=PREMIUM,nic-type=GVNIC,stack-type=IPV4_ONLY,subnet=default \
+  --metadata=tee-image-reference=$TEE_IMAGE_REFERENCE,\
+tee-container-log-redirect=true,\
+tee-env-GOOGLE_CLOUD_API_KEY=$GOOGLE_CLOUD_API_KEY,\
+tee-env-WEAVIATE_API_KEY=$WEAVIATE_API_KEY,\
+tee-env-WEAVIATE_HTTP_HOST=$WEAVIATE_HTTP_HOST,\
+tee-env-WEAVIATE_GRPC_HOST=$WEAVIATE_GRPC_HOST,\
+tee-env-FE_PRIVATE_KEY=$FE_PRIVATE_KEY,\
+  --maintenance-policy=MIGRATE \
+  --provisioning-model=STANDARD \
+  --service-account=confidential-sa@verifiable-ai-hackathon.iam.gserviceaccount.com \
+  --scopes=https://www.googleapis.com/auth/cloud-platform \
+  --min-cpu-platform="AMD Milan" \
+  --tags=flare-ai,http-server,https-server \
+  --create-disk=auto-delete=yes,\
+boot=yes,\
+device-name=$INSTANCE_NAME,\
+image=projects/confidential-space-images/global/images/confidential-space-debug-250100,\
+mode=rw,\
+size=11,\
+type=pd-standard \
+  --shielded-secure-boot \
+  --shielded-vtpm \
+  --shielded-integrity-monitoring \
+  --reservation-affinity=any \
+  --confidential-compute-type=SEV
+```

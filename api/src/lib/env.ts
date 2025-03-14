@@ -17,6 +17,8 @@ export interface IEnv {
   VECTOR_DB_CHUNK_OVERLAP: number;
 
   GOOGLE_CLOUD_API_KEY: string;
+
+  FE_PRIVATE_KEY: string;
 }
 
 /**
@@ -28,7 +30,7 @@ export const env: IEnv = {
   /**
    * API settings.
    */
-  API_PORT: Number(process.env['API_PORT'] || 4444),
+  API_PORT: Number(process.env['API_PORT'] || 3000),
 
   /**
    * Weaviate settings.
@@ -39,7 +41,7 @@ export const env: IEnv = {
   WEAVIATE_GRPC_HOST: process.env['WEAVIATE_GRPC_HOST'] || 'localhost',
   WEAVIATE_GRPC_PORT: Number(process.env['WEAVIATE_GRPC_PORT'] || 50051),
   WEAVIATE_API_USE_SECURE:
-    (process.env.WEAVIATE_API_USE_SECURE || '') === 'true',
+    (process.env.WEAVIATE_API_USE_SECURE || 'false') === 'true',
 
   /**
    * Vector DB settings.
@@ -47,5 +49,13 @@ export const env: IEnv = {
   VECTOR_DB_CHUNK_SIZE: Number(process.env.VECTOR_DB_CHUNK_SIZE || 4000),
   VECTOR_DB_CHUNK_OVERLAP: Number(process.env.VECTOR_DB_CHUNK_OVERLAP || 1000),
 
+  /**
+   * Google Cloud API key.
+   */
   GOOGLE_CLOUD_API_KEY: process.env['GOOGLE_CLOUD_API_KEY'] || '',
+
+  /**
+   * Frontend private key.
+   */
+  FE_PRIVATE_KEY: process.env['FE_PRIVATE_KEY'] || '',
 };

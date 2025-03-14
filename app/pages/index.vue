@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center w-[100vw] h-[100vh]">
     <n-card class="bg-grey border-1 !border-grey-lighter w-[600px] h-[88vh]">
       <div
-        v-if="verificationLoading"
+        v-if="verificationLoading || loading"
         class="absolute opacity-60 w-full flex items-center justify-center h-full top-0 left-0 bg-grey-dark z-10 rounded-lg"
       >
         <Spinner />
@@ -140,6 +140,10 @@ useAccountEffect({
   onConnect: _data => addVerification(),
 });
 
+onMounted(async () => {
+  await authFe();
+});
+
 const messages = ref<any[]>([]);
 const question = ref('');
 const modalWalletSelectVisible = ref(false);
@@ -151,6 +155,7 @@ const selectedMessageIdx = ref<any>(null);
 const verificationLoading = ref(false);
 const showSuccessModal = ref(false);
 const transactionHash = ref('');
+const loading = ref(false);
 
 async function startVerification(message: any, idx: number) {
   selectedMessage.value = message;
@@ -189,7 +194,7 @@ async function askQuestion() {
     }, 10);
 
     question.value = '';
-  } catch (error) {
+  } catch (error: any) {
     messages.value.pop();
     messages.value.pop();
 
@@ -238,6 +243,24 @@ async function addVerification() {
     messageApi.error(contractError(error));
   } finally {
     verificationLoading.value = false;
+  }
+}
+
+async function authFe() {
+  $api.setFeToken();
+
+  loading.value = false;
+  try {
+    const res = await $api.post<any>(Endpoints.attestationToken, {
+      nonce: Number(new Date()),
+    });
+
+    $api.setServerTokenToken(res.token);
+  } catch (error: any) {
+    messageApi.error(error);
+    console.log(error);
+  } finally {
+    loading.value = false;
   }
 }
 

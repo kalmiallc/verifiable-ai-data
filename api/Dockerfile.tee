@@ -1,0 +1,87 @@
+# Declare build arguments
+ARG NODE_VERSION=20-alpine
+ARG PLATFORM=linux/amd64
+
+# Build stage
+FROM --platform=${PLATFORM} node:${NODE_VERSION} AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Install dependencies (including dev dependencies for build)
+RUN pnpm install
+
+# Copy source code (excluding files in .dockerignore)
+COPY src ./src
+COPY tsconfig.json ./
+COPY .env.example .env
+
+# Build TypeScript code with verbose output
+RUN echo "Building TypeScript code..." && \
+    npx tsc && \
+    echo "Build complete. Contents of dist:" && \
+    ls -la dist/ || echo "dist directory not found, checking output directory in tsconfig.json"
+
+# Final stage
+FROM --platform=${PLATFORM} node:${NODE_VERSION} AS final
+
+# Install Node.js, pnpm, nginx, supervisor, and curl
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+    nginx \
+    supervisor \
+    curl \
+    && npm install -g pnpm
+
+# Create necessary directories for nginx and set permissions
+RUN mkdir -p /var/run && \
+    mkdir -p /var/lib/nginx && \
+    mkdir -p /var/log/nginx && \
+    chown -R root:root /var/run && \
+    chown -R root:root /var/lib/nginx && \
+    chown -R root:root /var/log/nginx && \
+    chmod 755 /var/run && \
+    chmod 755 /var/lib/nginx && \
+    chmod 755 /var/log/nginx
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
+
+# Install production dependencies only
+RUN pnpm install --prod
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+# If TypeScript outputs to a different directory, uncomment and adjust the following line
+# COPY --from=builder /app/build ./build
+
+# Copy environment files and start script
+COPY .env.example .env
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
+# Copy nginx and supervisor configurations
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Allow workload operator to override environment variables
+# Using a single LABEL with all environment variables
+LABEL "tee.launch_policy.allow_env_override"="GOOGLE_CLOUD_API_KEY,WEAVIATE_API_KEY,WEAVIATE_HTTP_HOST,WEAVIATE_GRPC_HOST,FE_PRIVATE_KEY"
+LABEL "tee.launch_policy.log_redirect"="always"
+
+# Expose the ports
+EXPOSE 80
+
+# Start supervisor (which will start both nginx and the backend)
+ENTRYPOINT ["/usr/bin/supervisord"]
+CMD ["-c", "/etc/supervisor/conf.d/supervisord.conf"] 

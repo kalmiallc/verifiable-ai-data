@@ -7,6 +7,8 @@ import { getEmbedding } from './lib/google-ai';
 import { CollectionName } from './lib/vector-db/types';
 import { generateHash, isUUID } from './lib/vector-db/utils';
 import { VectorDb } from './lib/vector-db/vector-db';
+import { Vtpm, VtpmAttestationError } from './lib/vtpm-attestation';
+import { VtpmValidation, VtpmValidationError } from './lib/vtpm-validation';
 
 const MAX_QUESTION_LEN = 500;
 const MAX_DOCUMENTS_LIMIT = 25;
@@ -19,14 +21,24 @@ const app = express();
 const port = env.API_PORT;
 
 app.use(express.json());
-app.use(cors({ origin: '*' }));
+app.use(cors({credentials: true, origin: true}));
 
 const client = new GoogleGenerativeAI(env.GOOGLE_CLOUD_API_KEY);
+const vtpmClient = new Vtpm();
+const vtpmValidator = new VtpmValidation();
 
 /**
  * Verify route.
  */
 app.post('/verify', async (req, res) => {
+  try {
+    await vtpmValidator.validateToken(req.headers['x-server-token'] as string);
+  } catch (error)     {
+    res.status(401);
+    res.json({ error: 'Unauthorized' });
+    return;
+  }
+
   const id = req.body.id;
   const txHash = req.body.txHash;
 
@@ -61,6 +73,15 @@ app.post('/verify', async (req, res) => {
  * Chat route.
  */
 app.post('/chat', async (req, res) => {
+  try {
+    await vtpmValidator.validateToken(req.headers['x-server-token'] as string);
+  } catch (error)     {
+    res.status(401);
+    res.json({ error: 'Unauthorized' });
+    return;
+  }
+
+
   // Request validation.
   const question = req.body.question;
   if (!question) {
@@ -186,6 +207,95 @@ app.post('/chat', async (req, res) => {
         'I am sorry I cannot answer your question right now. Please try again.',
       source: UNKNOWN_SOURCE,
     });
+  }
+});
+
+/**
+ * Get attestation token route.
+ * This route accepts a nonce and returns an attestation token.
+ */
+app.post('/attestation-token', async (req, res) => {
+  const nonce = req.body.nonce;
+
+  const FE_PRIVATE_KEY = req.headers['x-fe-private-key'];
+  if (FE_PRIVATE_KEY !== env.FE_PRIVATE_KEY) {
+    res.status(401);
+    res.json({ error: 'Unauthorized' });
+    return;
+  }
+  
+  if (!nonce) {
+    res.status(422);
+    res.json({ error: 'Invalid data, `nonce` is missing.' });
+    return;
+  }
+
+  try {
+    // Get attestation token using the nonce
+    const token = await vtpmClient.getToken([nonce]);
+    
+    res.json({ 
+      token,
+      message: 'Attestation token generated successfully.'
+    });
+  } catch (error) {
+    console.error('Error getting attestation token:', error);
+    
+    if (error instanceof VtpmAttestationError) {
+      res.status(400);
+      res.json({ error: error.message });
+    } else {
+      res.status(500);
+      res.json({ error: 'Failed to get attestation token.' });
+    }
+  }
+});
+
+/**
+ * Verify attestation token route.
+ * This route accepts a token and verifies it, returning the claims if valid.
+ */
+app.post('/attestation-token/verify', async (req, res) => {
+  const token = req.body.token;
+
+  const FE_PRIVATE_KEY = req.headers['x-fe-private-key'];
+  if (FE_PRIVATE_KEY !== env.FE_PRIVATE_KEY) {
+    res.status(401);
+    res.json({ error: 'Unauthorized' });
+    return;
+  }
+  
+  if (!token) {
+    res.status(422);
+    res.json({ error: 'Invalid data, `token` is missing.' });
+    return;
+  }
+
+  try {
+    // Verify the attestation token
+    const claims = await vtpmValidator.validateToken(token);
+    
+    res.json({
+      valid: true,
+      claims,
+      message: 'Attestation token verified successfully.'
+    });
+  } catch (error) {
+    console.error('Error verifying attestation token:', error);
+    
+    if (error instanceof VtpmValidationError) {
+      res.status(400);
+      res.json({ 
+        valid: false,
+        error: error.message 
+      });
+    } else {
+      res.status(500);
+      res.json({ 
+        valid: false,
+        error: 'Failed to verify attestation token.' 
+      });
+    }
   }
 });
 

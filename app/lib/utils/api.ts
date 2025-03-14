@@ -72,6 +72,14 @@ class Api {
     APISettings.headers.set('Authorization', 'Bearer ' + token);
   }
 
+  setFeToken() {
+    APISettings.headers.set('x-fe-private-key', getAppConfig().FE_KEY);
+  }
+
+  setServerTokenToken(token: string) {
+    APISettings.headers.set('x-server-token', token);
+  }
+
   clearToken() {
     APISettings.headers.delete('Authorization');
   }

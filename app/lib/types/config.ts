@@ -42,5 +42,6 @@ declare global {
     url: string;
     apiUrl: string;
     VERIFIER_CONTRACT: Address;
+    FE_KEY: string;
   }
 }
