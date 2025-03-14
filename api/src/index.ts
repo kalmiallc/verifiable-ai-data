@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
-import cors from 'cors';
 import express from 'express';
 import { env } from './lib/env';
 import { getEmbedding } from './lib/google-ai';
@@ -21,7 +20,34 @@ const app = express();
 const port = env.API_PORT;
 
 app.use(express.json());
-app.use(cors({credentials: true, origin: true}));
+
+// CORS middleware for specific origins
+app.use((req, res, next) => {
+  // Allow specific origins
+  const allowedOrigins = [
+    'https://verifiable-ai-data.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ];
+  
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+  } else {
+    // For all other origins
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'DNT, X-CustomHeader, Keep-Alive, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type, Authorization, X-Server-Token, X-Fe-Private-Key');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send('');
+  }
+  
+  next();
+});
 
 const client = new GoogleGenerativeAI(env.GOOGLE_CLOUD_API_KEY);
 const vtpmClient = new Vtpm();
