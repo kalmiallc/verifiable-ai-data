@@ -1,4 +1,5 @@
 import { useAccount } from '@wagmi/vue';
+import { parseEther } from 'viem';
 import { ContractType } from '~/lib/config/contracts';
 
 export default function useVerifier() {
@@ -11,10 +12,8 @@ export default function useVerifier() {
     }
 
     const contract = await initContract(ContractType.VERIFIER);
-    const submitCost = await contract.read.submitCost();
-
     return await contract.write.submitAnswer([answerId, question], {
-      value: submitCost,
+      value: parseEther('0.0001'),
     });
   }
 
