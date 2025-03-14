@@ -40,7 +40,9 @@ To ensure secure communication between the FE and TEE, we use server attestation
 2. The TEE verifies this key and returns a server attestation token.  
 3. The FE uses this attestation token for subsequent communications with the TEE, which verifies it with every request.
 
-![Communication](communication.png)
+
+![Communication](./communcation.png)
+
 
 ### Verification Process
 The verification process involves comparing hashes:  
