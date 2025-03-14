@@ -9,15 +9,18 @@ mkdir -p /run/nginx
 mkdir -p /var/lib/nginx
 mkdir -p /var/log/nginx
 mkdir -p /usr/share/nginx/html
+mkdir -p /etc/nginx/ssl
 touch /run/nginx/nginx.pid
 chown -R root:root /run/nginx
 chown -R root:root /var/lib/nginx
 chown -R root:root /var/log/nginx
 chown -R root:root /usr/share/nginx/html
+chown -R root:root /etc/nginx/ssl
 chmod 755 /run/nginx
 chmod 755 /var/lib/nginx
 chmod 755 /var/log/nginx
 chmod 755 /usr/share/nginx/html
+chmod 755 /etc/nginx/ssl
 chmod 644 /run/nginx/nginx.pid
 
 # Kill any existing Node.js processes on port 3000

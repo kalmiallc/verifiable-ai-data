@@ -38,18 +38,22 @@ RUN apk add --no-cache \
     nginx \
     supervisor \
     curl \
+    openssl \
     && npm install -g pnpm
 
 # Create necessary directories for nginx and set permissions
 RUN mkdir -p /var/run && \
     mkdir -p /var/lib/nginx && \
     mkdir -p /var/log/nginx && \
+    mkdir -p /etc/nginx/ssl && \
     chown -R root:root /var/run && \
     chown -R root:root /var/lib/nginx && \
     chown -R root:root /var/log/nginx && \
+    chown -R root:root /etc/nginx/ssl && \
     chmod 755 /var/run && \
     chmod 755 /var/lib/nginx && \
-    chmod 755 /var/log/nginx
+    chmod 755 /var/log/nginx && \
+    chmod 755 /etc/nginx/ssl
 
 WORKDIR /app
 
@@ -68,7 +72,9 @@ COPY --from=builder /app/dist ./dist
 # Copy environment files and start script
 COPY .env.example .env
 COPY start.sh /app/start.sh
+COPY generate-ssl-cert.sh /app/generate-ssl-cert.sh
 RUN chmod +x /app/start.sh
+RUN chmod +x /app/generate-ssl-cert.sh
 
 # Copy nginx and supervisor configurations
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -81,6 +87,7 @@ LABEL "tee.launch_policy.log_redirect"="always"
 
 # Expose the ports
 EXPOSE 80
+EXPOSE 443
 
 # Start supervisor (which will start both nginx and the backend)
 ENTRYPOINT ["/usr/bin/supervisord"]

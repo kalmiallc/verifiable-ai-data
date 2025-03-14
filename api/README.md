@@ -76,3 +76,4 @@ type=pd-standard \
   --reservation-affinity=any \
   --confidential-compute-type=SEV
 ```
+
