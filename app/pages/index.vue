@@ -252,7 +252,7 @@ async function authFe() {
   loading.value = false;
   try {
     const res = await $api.post<any>(Endpoints.attestationToken, {
-      nonce: Number(new Date()),
+      nonce: Number(new Date()).toString(),
     });
 
     $api.setServerTokenToken(res.token);
