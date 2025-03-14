@@ -6,7 +6,7 @@ Project solution for the Verifiable AI Hackathon
 
 ## Application URLs
 
-##### NOTICE: Before opening the application open the https://34.162.205.94/api/ in the browser and allow its self signed certificate.
+##### NOTICE: Before opening the application, open the https://34.162.205.94/api/ in the browser and allow its self-signed certificate.
 
 | Application | URL                                   |
 | ----------- | ------------------------------------- |
@@ -52,12 +52,14 @@ The verification process involves comparing hashes:
 - If the hashes match, the verification is confirmed.  
 - Similarly, users can provide trustworthiness by writing the hash to the blockchain themselves.
 
-This approach ensures transparency, trustworthiness, and decentralization in verifying AI-generated answers.
+This approach ensures transparency, trustworthiness, and decentralization when verifying AI-generated answers.
+
+ 
 
 
-TODO:// Add descpritipon, how llm and RAG works. 
+### RAG and LLM communication
 
-
+We use Weaviate as our main Vector database with two different collections. In the first collection, we store knowledge which is then fed to the LLM (Gemini) to provide contextual information. In the second collection, we store LLM generated question and answer pairs - each pair obtains its own hash and the end user has an option to stake his own funds to verify the question and answer pairs. Verified answers are then used by LLM to provide user verified answers which can be verified on blockchain - these answers have higher priority than new AI generated answers.
 
 
 # Future Plan
