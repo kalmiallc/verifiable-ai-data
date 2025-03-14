@@ -59,8 +59,7 @@ This approach ensures transparency, trustworthiness, and decentralization when v
 
 ### RAG and LLM communication
 
-We use Weaviate as our main Vector database with two different collections. In the first collection, we store knowledge which is then fed to the LLM (Gemini) to provide contextual information. In the second collection, we store LLM generated question and answer pairs - each pair obtains its own hash and the end user has an option to stake his own funds to verify the question and answer pairs. Verified answers are then used by LLM to provide user verified answers which can be verified on blockchain - these answers have higher priority than new AI generated answers.
-
+We use Weaviate as our main Vector database with two different collections. In the first collection, we store knowledge which is then fed to the LLM (Gemini) to provide contextual information. In the second collection, we store users' questions and their LLM generated answers - each pair obtains its own hash and the end user has an option to stake his own funds to verify the question and answer pair. Verified answers are then used by LLM when answering new user questions - these verified answers have higher priority than new AI-generated answers.
 
 # Future Plan
 Our vision includes developing a **decentralized hub** where users can access trusted AI answers by paying small blockchain fees. To ensure the integrity of the system:
