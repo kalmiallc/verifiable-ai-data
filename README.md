@@ -4,17 +4,6 @@ Project solution for the Verifiable AI Hackathon
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/Cevx1QfOmzE/0.jpg)](http://www.youtube.com/watch?v=Cevx1QfOmzE "Flare Verifiable AI Data Demo")
 
-## Application URLs
-
-##### NOTICE: Before opening the application, open the https://34.162.205.94/api/ in the browser and allow its self-signed certificate.
-
-| Application | URL                                   |
-| ----------- | ------------------------------------- |
-| Frontend    | https://verifiable-ai-data.vercel.app |
-| Backend TEE | https://34.162.205.94/api             |
-
-
-
 # Problem
 AI models, while powerful, cannot be fully trusted due to the lack of transparency in verifying the trustworthiness of their answers. Current solutions to address this issue are centralized, requiring users to place their trust in a single entity for verification. This centralized approach undermines the very goal of building reliable and unbiased systems.
 
